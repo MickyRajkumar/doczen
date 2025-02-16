@@ -10,6 +10,7 @@ def generate_markdown(
     method,
     headers=None,
     append=False,
+    request_title=None,
     request_data=None,
 ):
     """Generate Markdown documentation from the API response."""
@@ -25,14 +26,7 @@ def generate_markdown(
 
     # Method Documentation
     markdown.append(f"## {method.upper()}\n")
-    if method.upper() == "GET":
-        markdown.append("Retrieves the data.\n")
-    elif method.upper() == "POST":
-        markdown.append("Creates a new resource.\n")
-    elif method.upper() == "PATCH":
-        markdown.append("Updates an existing resource partially.\n")
-    elif method.upper() == "DELETE":
-        markdown.append("Deletes a resource.\n")
+    markdown.append(f"### {request_title}\n")
 
     # Headers (if provided)
     if headers:
@@ -57,20 +51,20 @@ def generate_markdown(
     #                 )
 
     # Query Parameters (if applicable)
-    if method.upper() in ["GET", "DELETE"]:
-        have_query = input(
-            f"Does {method.upper()} have any query parameters? (yes/no): "
-        )
-        if have_query.lower() in ["yes", "y"]:
-            headers = ["Parameter", "Type", "Required", "Description", "Default"]
-            print(
-                "Enter the details for each query parameter. Type 'done' when finished.\n"
-            )
-            parameters = get_user_input()
-            if parameters:
-                markdown_table = generate_markdown_table(parameters, headers)
-                markdown.append("## Query Parameters\n")
-                markdown.append(markdown_table)
+    # if method.upper() in ["GET", "DELETE"]:
+    #     have_query = input(
+    #         f"Does {method.upper()} have any query parameters? (yes/no): "
+    #     )
+    #     if have_query.lower() in ["yes", "y"]:
+    #         headers = ["Parameter", "Type", "Required", "Description", "Default"]
+    #         print(
+    #             "Enter the details for each query parameter. Type 'done' when finished.\n"
+    #         )
+    #         parameters = get_user_input()
+    #         if parameters:
+    #             markdown_table = generate_markdown_table(parameters, headers)
+    #             markdown.append("## Query Parameters\n")
+    #             markdown.append(markdown_table)
 
     # Request Body (if applicable)
     if request_data and method in ["POST", "PATCH"]:

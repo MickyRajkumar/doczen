@@ -3,7 +3,6 @@ import requests
 
 def fetch_api_data(api_url, method="GET", data=None, headers=None):
     """Fetch data from the API endpoint."""
-    print(f"requested data {data}")
     try:
         if method.upper() == "GET":
             response = requests.get(api_url, headers=headers)

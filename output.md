@@ -95,3 +95,27 @@ Updates an existing resource partially.
 | Field | Type | Required | Description |
 | :--- | :--- | :---: | :--- |
 | body | string | Yes | body of article |
+
+---
+
+# API Endpoint
+
+`https://jsonplaceholder.typicode.com/posts/1`
+
+## DELETE
+
+Deletes a resource.
+
+## Headers
+
+| Header | Value |
+|--------|-------|
+| **Authorization** | `your token` |
+
+## Response Data
+
+```json
+
+{}
+
+```

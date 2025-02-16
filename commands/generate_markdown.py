@@ -88,7 +88,10 @@ def generate_headers_table(headers):
     table = "| Header | Value |\n"
     table += "|--------|-------|\n"
     for key, value in headers.items():
-        table += f"| **{key}** | `{value}` |\n"
+        masked_value = (
+            "`your token`" if "authorization" in key.lower() else f"`{value}`"
+        )
+        table += f"| **{key}** | {masked_value} |\n"
     return table
 
 

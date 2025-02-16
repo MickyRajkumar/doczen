@@ -23,7 +23,7 @@ A Python-based tool to generate Markdown documentation for API endpoints. It sup
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/api-docs-generator.git 
+git clone https://github.com/MickyRajkumar/doczen.git 
 cd doczen
 ```
 

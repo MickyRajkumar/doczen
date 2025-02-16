@@ -4,6 +4,7 @@ import os
 
 from commands.fetch_data import fetch_api_data
 from commands.generate_markdown import generate_markdown
+from utils.process_data import process_data
 
 
 def main():
@@ -28,12 +29,23 @@ def main():
             raise ValueError(
                 "Invalid HTTP method. Please choose from GET, POST, PATCH, DELETE."
             )
-
+        type_mapping = {
+            "string": str,
+            "integer": int,
+            "float": float,
+            "bool": lambda x: x.lower() == "true" if isinstance(x, str) else bool(x),
+        }
         request_data = None
+        request_fields = None
         if method in ["POST", "PATCH"]:
             try:
                 request_fields = get_request_fields()
-                request_data = {field["Field"]: None for field in request_fields}
+                body_data = {
+                    field["Field"]: type_mapping.get(field["Type"], str)(field["Value"])
+                    for field in request_fields
+                }
+                if isinstance(body_data, str):
+                    request_data = json.loads(body_data)
             except json.JSONDecodeError:
                 raise ValueError("Invalid JSON format for request body.")
 
@@ -49,10 +61,17 @@ def main():
         api_data = fetch_api_data(
             args.api_url, method, headers=headers, data=request_data
         )
+        processed_data = process_data(api_data)
 
         # Generate Markdown
         generate_markdown(
-            args.api_url, api_data, output_file, method, headers, append, request_data
+            args.api_url,
+            processed_data,
+            output_file,
+            method,
+            headers,
+            append,
+            request_data=request_fields,
         )
         print(f"Documentation generated successfully: {output_file}")
 
@@ -68,6 +87,7 @@ def get_request_fields():
         field["Field"] = input("Enter field name (or type 'done' to finish): ")
         if field["Field"].lower() == "done":
             break
+        field["Value"] = input("Enter field value: ")
         field["Type"] = input("Enter field type (e.g., string, integer): ")
         field["Required"] = input("Is this field required? (yes/no): ").lower() in [
             "yes",

@@ -1,6 +1,6 @@
 # API Endpoint
 
-`https://dogapi.dog/api/v2/facts`
+`https://jsonplaceholder.typicode.com/posts/`
 
 ## GET
 
@@ -16,33 +16,26 @@ Retrieves the data.
 
 ```json
 
-{
-  "data": [
-    {
-      "id": "87a86bc0-9dbb-4069-81db-e595e4b1f156",
-      "type": "fact",
-      "attributes": {
-        "body": "A lost Dachshund was found swallowed whole in the stomach of a giant catfish in Berlin on July 2003."
-      }
-    }
-  ]
-}
+[
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+  }
+]
 
 ```
-
-## Fields
-
-- **data**: `list`
 
 ---
 
 # API Endpoint
 
-`https://dogapi.dog/api/v2/facts`
+`https://jsonplaceholder.typicode.com/posts/`
 
-## GET
+## POST
 
-Retrieves the data.
+Creates a new resource.
 
 ## Headers
 
@@ -55,25 +48,50 @@ Retrieves the data.
 ```json
 
 {
-  "data": [
-    {
-      "id": "52daa494-7fd4-4a44-95c1-128afbfa0ab8",
-      "type": "fact",
-      "attributes": {
-        "body": "The fastest breed, the Greyhound, can run up to 44 miles per hour."
-      }
-    }
-  ]
+  "id": 101
 }
 
 ```
 
 ## Fields
 
-- **data**: `list`
+| Field | Type | Required | Description |
+| :--- | :--- | :---: | :--- |
+| userid | integer | Yes | foriegn key |
+| title | string | Yes | title of post |
+| body | string | No | body of article |
 
-## Query Parameters
+---
 
-| Parameter | Type | Required | Description | Default |
-| :--- | :---: | :---: | :--- | :--- |
-| name | string | no | test | - |
+# API Endpoint
+
+`https://jsonplaceholder.typicode.com/posts/1`
+
+## PATCH
+
+Updates an existing resource partially.
+
+## Headers
+
+| Header | Value |
+|--------|-------|
+| **Authorization** | `Bearer token` |
+
+## Response Data
+
+```json
+
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+
+```
+
+## Fields
+
+| Field | Type | Required | Description |
+| :--- | :--- | :---: | :--- |
+| body | string | Yes | body of article |

@@ -4,6 +4,8 @@ import os
 
 from commands.fetch_data import fetch_api_data
 from commands.generate_markdown import generate_markdown
+from utils.get_request_fields import get_request_fields
+from utils.get_user_input_from_body import get_user_input_for_body
 from utils.process_data import process_data
 
 
@@ -103,60 +105,6 @@ def main():
 
     except Exception as e:
         print(f"Error: {e}")
-
-
-def get_request_fields():
-    """Get request fields from the user."""
-    fields = []
-    while True:
-        field = {}
-        field["Field"] = input("Enter field name (or type 'done' to finish): ")
-        if field["Field"].lower() == "done":
-            break
-        field["Value"] = input("Enter field value: ")
-        field["Type"] = input("Enter field type (e.g., string, integer): ")
-        field["Required"] = input("Is this field required? (yes/no): ").lower() in [
-            "yes",
-            "y",
-        ]
-        field["Description"] = input("Enter field description: ")
-        fields.append(field)
-        print("Field added!\n")
-    return fields
-
-
-def get_user_input_for_body(data):
-    """Ask the user for type, required flag, and description for each field in the JSON body."""
-    fields = []
-    print("Define all the posible fields types, required, description: \n")
-
-    for key, value in data.items():
-        print(f"Field: {key}")
-
-        # Ask user for field type (default to Python-detected type)
-        detected_type = type(value).__name__
-        field_type = input(f"Enter type [{detected_type}]: ") or detected_type
-
-        # Ask if the field is required (default: Yes if value is not None)
-        required_default = "Yes" if value is not None else "No"
-        required = (
-            input(f"  Is this field required? (Yes/No) [{required_default}]: ")
-            or required_default
-        )
-
-        # Ask for description
-        description = input("  Enter description: ") or "N/A"
-
-        fields.append(
-            {
-                "Field Name": key,
-                "Type": field_type,
-                "Required": required,
-                "Description": description,
-            }
-        )
-
-    return fields
 
 
 if __name__ == "__main__":

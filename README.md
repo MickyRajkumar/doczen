@@ -18,6 +18,10 @@ A Python-based tool to generate Markdown documentation for API endpoints. It sup
 
 ---
 
+## example 
+
+Check the `output.md` file in the root directory for an example of the generated output
+
 ## Installation
 
 ### 1. Clone the Repository

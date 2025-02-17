@@ -119,3 +119,27 @@ Deletes a resource.
 {}
 
 ```
+
+---
+
+# API Endpoint
+
+`https://jsonplaceholder.typicode.com/posts/1`
+
+## DELETE
+
+### delete a post
+
+## Headers
+
+| Header | Value |
+|--------|-------|
+| **Authorization** | `your token` |
+
+## Response Data
+
+```json
+
+{}
+
+```
